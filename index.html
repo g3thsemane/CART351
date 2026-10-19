@@ -1,16 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        .gradient-circle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(40vw, 60vh, 480px);
+            aspect-ratio: 1;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(18, 10, 143, 1) 0%, rgba(18, 10, 143, 0.8) 25%, rgba(18, 10, 143, 0.35) 45%, rgba(18, 10, 143, 0) 70%);
+            filter: blur(16px);
+            pointer-events: none;
+        }
+
+        nav {
+            position: fixed;
+            z-index: 1;
+            top: 50%;
+            left: 1rem;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            font-family: Arial, sans-serif;
+            font-size: 150%;
+        }
+
+        nav a {
+            color: black;
+            text-decoration: none;
+            transform-origin: left center;
+            transition: transform 150ms ease;
+        }
+
+        /*
+        nav a:hover {
+            transform: scale(1.05);
+        } */
+
+        nav a span {
+            display: inline-block;
+            white-space: pre;
+            transition: transform 180ms ease;
+            transition-delay: calc(var(--letter-index) * 25ms);
+        }
+
+        nav a:hover span {
+            transform: translateX(calc(var(--letter-index) * 0.08em));
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+
+            nav a,
+            nav a span {
+                transition: none;
+            }
+        }
+    </style>
 </head>
+
 <body>
-      <nav>
+    <div class="gradient-circle" aria-hidden="true"></div>
+    <nav>
         <a href="Journal/journal.html">Journal</a>
-        <a href="Exercises/exercise1.py">Exercise 1</a>
-        <a href="Exercises/exercise1p2.py">Exercise 1_Part_2</a>
+        <a href="Exercises/exercise1.py">Exercise 1 P.I</a>
+        <a href="Exercises/exercise1p2.py">Exercise 1 P.II</a>
     </nav>
-    
+    <script>
+        document.querySelectorAll('nav a').forEach(link => {
+            const label = link.textContent;
+            link.setAttribute('aria-label', label);
+            link.replaceChildren(...Array.from(label, (letter, index) => {
+                const span = document.createElement('span');
+                span.textContent = letter;
+                span.style.setProperty('--letter-index', index);
+                span.setAttribute('aria-hidden', 'true');
+                return span;
+            }));
+        });
+    </script>
+
 </body>
+
 </html>
