@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block title %}Task 1: Get Request{% endblock %}
+{% block body_class %}task-one-page{% endblock %}
+{% block header_title %}Task 1: Get Request{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/t1.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="task-one">
+        <div class="task-one-layout">
+            <section class="search-panel">
+                <h4>Search</h4>
+                <form action="{{ url_for('getSearchCriteria') }}" method="get">
+                    <input type="text" name="search"
+                           value="{{ request.args.get('search', '') }}"
+                           placeholder="Enter a search term" required>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+
+            <section class="results-panel">
+                {% if have_results and description %}
+                    <p class="result-description">{{ description }}</p>
+                {% endif %}
+                {% if have_results and imgPath %}
+                    <img class="result-image" src="{{ imgPath }}" alt="Search result">
+                {% else %}
+                    <div class="image-placeholder">
+                        Result image will appear here
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Task 2: Multiple{% endblock %}
+{% block body_class %}task-two-page{% endblock %}
+{% block header_title %}Task 2: Multiple{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/t2.css') }}">
+{% endblock %}
+
+{% block content %}
+    <section class="task-two">
+        <div class="task-two-layout">
+            <section class="search-panel">
+                <h4>Search</h4>
+                <form action="{{ url_for('getSearchCriteria_adv') }}" method="get">
+                    <input type="text" name="search"
+                           value="{{ request.args.get('search', '') }}"
+                           placeholder="Enter a search term" required>
+                    <button type="submit">Search</button>
+                </form>
+            </section>
+
+            <section class="results-panel">
+                {% if images %}
+                    {% for image in images %}
+                        <img class="result-image"
+                             src="{{ image }}"
+                             alt="NASA search result">
+                    {% endfor %}
+                {% else %}
+                    <div class="image-placeholder">
+                        Result images will appear here
+                    </div>
+                {% endif %}
+            </section>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../static/css/base.css">
+    {% block styles %}{% endblock %}
+    <title>{% block title %}CART 351 EX TWO{% endblock %}</title>
+
+    </head>
+    <body class="{% block body_class %}{% endblock %}">
+        <header> 
+            <h2>{% block header_title %}CART 351 EX TWO{% endblock %}</h2>
+            <nav aria-label="Main navigation">
+                <ul>
+                    <li> <a href="{{url_for('index')}}">Home </a> </li>
+                    <li> <a href="{{ url_for('t1') }}">Task 1</a> </li>
+                   <li><a href="{{ url_for('t2') }}">Task 2</a></li> 
+                </ul>
+                </nav>
+        </header>
+        <main>
+        {% block content %}{% endblock %}
+        </main>
+        <footer>
+            footer info ** footer info **
+        </footer>
+    </body>
+</html>
