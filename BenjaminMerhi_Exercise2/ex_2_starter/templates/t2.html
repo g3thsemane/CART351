@@ -23,11 +23,13 @@
 
             <section class="results-panel">
                 {% if images %}
-                    {% for image in images %}
-                        <img class="result-image"
-                             src="{{ image }}"
-                             alt="NASA search result">
-                    {% endfor %}
+                    <div class="image-grid">
+                        {% for image in images %}
+                            <img class="result-image"
+                                 src="{{ image }}"
+                                 alt="NASA search result {{ loop.index }}">
+                        {% endfor %}
+                    </div>
                 {% else %}
                     <div class="image-placeholder">
                         Result images will appear here

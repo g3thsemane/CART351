@@ -1,11 +1,16 @@
 <!-- will be a child of base-->
 {% extends "base.html" %}
 
+{% block body_class %}home-page{% endblock %}
+{% block header_title %}CART 351: Exercise 2{% endblock %}
+
 {% block content %}
-   
-     <h3>** Welcome  **</h3>
-    <section>
-        <!-- stuff goes in here -->
-         <p> This is the content for the index page</p>
-    </section>
+    <script>
+        document.querySelectorAll('.home-page nav li').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                const hue = Math.floor(Math.random() * 360);
+                item.style.setProperty('--hover-color', `hsl(${hue}, 70%, 80%)`);
+            });
+        });
+    </script>
 {% endblock %}

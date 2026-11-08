@@ -56,7 +56,16 @@ def t2():
 def getSearchCriteria_adv():
     search_term = request.args.get("search", "").strip()
     encodedImageLinks = []
-    #fill me in :
+    response = requests.get("https://images-api.nasa.gov/search",
+                            params={"q": search_term, "media_type": "image"})
+    response.raise_for_status()
+    items = response.json()["collection"]["items"]
+
+    for item in items[:4]:
+        links = item.get("links", [])
+        if links:
+            encodedImageLinks.append(links[0]["href"].replace(' ', '%20'))
+
     return render_template("t2.html",images=encodedImageLinks)
 #*************************************************
 
