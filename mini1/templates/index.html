@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Topographical Life</title>
+    <!-- url_for() directed to js and css-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+<body>
+    <main>
+        <h1>A Topographical Life</h1>
+
+        <!-- Input, will work on later-->
+        <label for="response">What gives your life meaning?</label>
+        <input type="text" id="response" name="response" placeholder="Enter one word">
+        <button type="button">Submit</button>
+    </main>
+</body>
+</html>
