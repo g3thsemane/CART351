@@ -3,6 +3,7 @@ const form = document.querySelector("#response-form");
 const input = document.querySelector("#response");
 const message = document.querySelector("#response-message");
 
+
 //event listener for form submission
 form.addEventListener("submit", async function(event) {
     event.preventDefault();
@@ -32,3 +33,15 @@ form.addEventListener("submit", async function(event) {
         form.reset();
     }
 });
+
+//Getting respones from the flask server. Using fetch().
+async function getWord() {
+
+    const response = await fetch("/getWord");
+
+    const words = await response.json();
+
+    console.log(words);
+}
+
+getWord();
