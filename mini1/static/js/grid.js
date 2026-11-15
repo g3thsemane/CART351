@@ -64,16 +64,19 @@ const material = new THREE.LineBasicMaterial({ color: "#879ba8" });
 const grid = new THREE.LineSegments(geometry, material);
 scene.add(grid);
 
-//Render grid 
+
 function renderGrid() {
     const width = container.clientWidth;
     const height = container.clientHeight;
+
     camera.aspect = width / height;
 
-    //Dynamic movement so grid remains visible
-    const distanceScale = Math.max(1, 1 / camera.aspect);
-    camera.position.set(22 * distanceScale, 24 * distanceScale, 30 * distanceScale);
+    //Camera position
+    camera.position.set(15, 20, 55);
+
+    //Camera direction
     camera.lookAt(0, 0, 0);
+
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
     renderer.render(scene, camera);
