@@ -6,7 +6,7 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color("#fcfce7");
 const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
 
-//Renderer draws scene onto canvas
+//Renderer draws scene onto canvas  
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
@@ -17,16 +17,42 @@ const columns = 30;
 const rows = 20;
 const points = [];
 
-//Horizontal lines in grid
-for (let row = 0; row <= rows; row++) {
-    const z = -gridDepth / 2 + (row / rows) * gridDepth;
-    points.push(-gridWidth / 2, 0, z, gridWidth / 2, 0, z);
+//Gaussian for bell curve shape, generates higher and lower points based around a central point.
+function hillHeight(x, z, centreX, centreZ, height, width) {
+    const dx = x - centreX;
+    const dz = z - centreZ;
+    const distanceSquared = dx * dx + dz * dz;
+    return height * Math.exp(-distanceSquared / (2 * width * width));
 }
 
-//Perpendicular lines
+//Fixed hills(for now) and valleys combined
+function terrainHeight(x, z) {
+    return hillHeight(x, z, -8, -3, 5, 3.4)
+        + hillHeight(x, z, 1, 3, 3.5, 2.8)
+        + hillHeight(x, z, 8, -2, 4.4, 3.2)
+        + hillHeight(x, z, 0, -4, -1.7, 2.4);
+}
+
+//Horizontal line segments to follow the curve
+for (let row = 0; row <= rows; row++) {
+    const z = -gridDepth / 2 + (row / rows) * gridDepth;
+    for (let column = 0; column < columns; column++) {
+        const x1 = -gridWidth / 2 + (column / columns) * gridWidth;
+        const x2 = -gridWidth / 2 + ((column + 1) / columns) * gridWidth;
+        points.push(x1, terrainHeight(x1, z), z);
+        points.push(x2, terrainHeight(x2, z), z);
+    }
+}
+
+//Same thing for perpendicular lines so they intersect
 for (let column = 0; column <= columns; column++) {
     const x = -gridWidth / 2 + (column / columns) * gridWidth;
-    points.push(x, 0, -gridDepth / 2, x, 0, gridDepth / 2);
+    for (let row = 0; row < rows; row++) {
+        const z1 = -gridDepth / 2 + (row / rows) * gridDepth;
+        const z2 = -gridDepth / 2 + ((row + 1) / rows) * gridDepth;
+        points.push(x, terrainHeight(x, z1), z1);
+        points.push(x, terrainHeight(x, z2), z2);
+    }
 }
 
 const geometry = new THREE.BufferGeometry();
