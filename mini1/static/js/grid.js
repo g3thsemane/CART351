@@ -4,17 +4,17 @@ const container = document.querySelector("#landscape");
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("#fcfce7");
-const camera = new THREE.PerspectiveCamera(45, 1, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 1000);
 
 //Renderer draws scene onto canvas  
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-const gridWidth = 30;
-const gridDepth = 20;
-const columns = 30;
-const rows = 20;
+const gridWidth = 90;
+const gridDepth = 90;
+const columns = 70;
+const rows = 80;
 const points = [];
 
 //Gaussian for bell curve shape, generates higher and lower points based around a central point.
@@ -56,8 +56,11 @@ for (let column = 0; column <= columns; column++) {
 }
 
 const geometry = new THREE.BufferGeometry();
+//assigning positions of points[]
 geometry.setAttribute("position", new THREE.Float32BufferAttribute(points, 3));
+//colour 
 const material = new THREE.LineBasicMaterial({ color: "#879ba8" });
+//Wireframe geometry 
 const grid = new THREE.LineSegments(geometry, material);
 scene.add(grid);
 
