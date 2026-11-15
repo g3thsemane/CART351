@@ -12,10 +12,12 @@
     <main>
         <h1>A Topographical Life</h1>
 
-        <!-- Input, will work on later-->
-        <label for="response">What gives your life meaning?</label>
-        <input type="text" id="response" name="response" placeholder="Enter one word">
-        <button type="button">Submit</button>
+        <form id="response-form" action="{{ url_for('submit_response') }}" method="post">
+            <label for="response">What gives your life meaning?</label>
+            <input type="text" id="response" name="response" placeholder="Enter one word" required>
+            <button type="submit">Submit</button>
+        </form>
+        <p id="response-message" role="status" aria-live="polite"></p>
     </main>
 </body>
 </html>
