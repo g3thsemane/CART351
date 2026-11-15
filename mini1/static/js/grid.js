@@ -13,8 +13,8 @@ container.appendChild(renderer.domElement);
 
 const gridWidth = 90;
 const gridDepth = 90;
-const columns = 70;
-const rows = 80;
+const columns = 140;
+const rows = 150;
 const points = [];
 
 //Gaussian for bell curve shape, generates higher and lower points based around a central point.
@@ -55,11 +55,37 @@ for (let column = 0; column <= columns; column++) {
     }
 }
 
+//Choosing colours based on point elevation
+function elevationColour(height) {
+    if (height < 1) {
+        //Blue for lowest points
+        return new THREE.Color("#879ba8"); 
+    } else if (height < 2.5) {
+        //Green for low slopes
+        return new THREE.Color("#8fa681"); 
+    } else if (height < 3.75) {
+        //Yellow for higher slopes
+        return new THREE.Color("#d2b568"); 
+    } else {
+        //Red for highest points
+        return new THREE.Color("#bd776e"); 
+    }
+}
+
+//Match and RGB colour to each point
+const colours = [];
+for (let i = 0; i < points.length; i += 3) {
+    const height = points[i + 1]; 
+    const colour = elevationColour(height);
+    colours.push(colour.r, colour.g, colour.b);
+}
+
 const geometry = new THREE.BufferGeometry();
 //assigning positions of points[]
 geometry.setAttribute("position", new THREE.Float32BufferAttribute(points, 3));
-//colour 
-const material = new THREE.LineBasicMaterial({ color: "#879ba8" });
+//Colours added to actual geometry
+geometry.setAttribute("color", new THREE.Float32BufferAttribute(colours, 3));
+const material = new THREE.LineBasicMaterial({ vertexColors: true });
 //Wireframe geometry 
 const grid = new THREE.LineSegments(geometry, material);
 scene.add(grid);
