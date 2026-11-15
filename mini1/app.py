@@ -37,6 +37,15 @@ def submit_response():
 
     return jsonify({"message": "Your response has been saved!"})
 
+# route for gettign the words from the json file
+@app.route("/getWord")
+def get_word():
+
+    with open("responses.json", "r") as file:
+        words = json.load(file)
+
+    return jsonify(words)
+
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)
