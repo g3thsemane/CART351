@@ -1,26 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>A Topographical Life</title>
-    <!-- url_for() directed to js and css-->
+
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
-    <!--Three.js-->
-    <script type="module" src="{{ url_for('static', filename='js/grid.js') }}"></script>
+
+    <!-- JavaScript -->
+    <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
 </head>
+
 <body>
     <main>
         <h1>A Topographical Life</h1>
 
-        <form id="response-form" action="{{ url_for('submit_response') }}" method="post">
+        <form id="response-form"
+              action="{{ url_for('submit_response') }}"
+              method="post"
+              data-words-url="{{ url_for('get_word') }}">
+
             <label for="response">What gives your life meaning?</label>
-            <input type="text" id="response" name="response" placeholder="Enter one word" required>
+
+            <input type="text" id="response" name="response"
+                   placeholder="Enter one word" required>
+
             <button type="submit">Submit</button>
         </form>
+
         <p id="response-message" role="status" aria-live="polite"></p>
-        <div id="landscape" role="img" aria-label="A blue-grey wireframe landscape with smooth mountains and valleys viewed from an angle"></div>
+
+        <div id="landscape"></div>
     </main>
 </body>
+
 </html>
