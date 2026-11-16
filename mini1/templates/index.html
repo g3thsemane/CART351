@@ -11,13 +11,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 
     <!-- JavaScript -->
+     <script type="importmap">
+{
+    "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
     <script type="module" src="{{ url_for('static', filename='js/script.js') }}"></script>
     <script src="{{ url_for('static', filename='js/audio.js') }}" defer></script>
 </head>
 
 <body>
     <main>
-        <h1>A Topographical Life</h1>
+        <h1>Mountains of Meaning</h1>
 
         <form id="response-form"
               action="{{ url_for('submit_response') }}"

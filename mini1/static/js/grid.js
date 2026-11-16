@@ -1,4 +1,5 @@
-import * as THREE from "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js";
+import * as THREE from "three";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 const container = document.querySelector("#landscape");
 
@@ -6,14 +7,35 @@ const scene = new THREE.Scene();
 scene.background = new THREE.Color("#fcfce7");
 const camera = new THREE.PerspectiveCamera(55, 2, 0.1, 1000);
 
+
 //Renderer draws scene onto canvas  
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-const gridWidth = 550;
-const gridDepth = 120;
-const columns = 700;
+//Camera position
+camera.position.set(30, 55, 90);
+
+//Attach dragging controls to the canvas.
+const controls = new OrbitControls(camera, renderer.domElement);
+
+//rotation point
+controls.target.set(10, 5, 0);
+
+//Keep the target and viewing distance fixed.
+controls.enablePan = false;
+controls.enableZoom = false;
+
+controls.update();
+
+//Redraw whenever dragging changes the camera.
+controls.addEventListener("change", function () {
+    renderer.render(scene, camera);
+});
+
+const gridWidth = 200;
+const gridDepth = 200;
+const columns = 500;
 const rows = 200;
 let hills = [];
 
@@ -154,12 +176,6 @@ function renderGrid() {
     const height = container.clientHeight;
 
     camera.aspect = width / height;
-
-    //Camera position
-    camera.position.set(0, 40, 90);
-
-    //Camera direction
-    camera.lookAt(0, 5, 0);
 
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
