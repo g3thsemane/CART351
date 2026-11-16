@@ -28,12 +28,32 @@ button {
     font: inherit;
     padding: 0.5rem;
     margin-left: 1rem;
+    background-color: #fcfce7;
+}
+
+#response-message {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10;
+    margin: 0;
+    max-width: min(24rem, calc(100vw - 2rem));
+    box-sizing: border-box;
+    overflow-wrap: anywhere;
+    pointer-events: none;
+}
+
+#response-message:not(:empty) {
+    padding: 0.75rem 1rem;
+    background-color: #fcfce7;
+    border: 1px solid #879ba8;
+    border-radius: 4px;
 }
 
 
 #landscape {
     width: 100%;
-    height: calc(100vh - 170px);
+    height: calc(100vh - 155px);
     min-height: 320px;
 }
 

@@ -27,7 +27,7 @@ form.addEventListener("submit", async function(event) {
         //Send the word to Flask with fetch, then retrieve the updated collection.
         const response = await fetch(form.action, {
             method: "POST", 
-            //Data sent in JSON
+            //Data sent in JSON, clarification
             headers: {"Content-Type": "application/json"},
             //Turning a Js object into a JSON string 
             body: JSON.stringify({word: word})

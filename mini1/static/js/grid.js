@@ -4,17 +4,17 @@ const container = document.querySelector("#landscape");
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color("#fcfce7");
-const camera = new THREE.PerspectiveCamera(45, 2, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(55, 2, 0.1, 1000);
 
 //Renderer draws scene onto canvas  
 const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 container.appendChild(renderer.domElement);
 
-const gridWidth = 90;
-const gridDepth = 90;
-const columns = 110;
-const rows = 120;
+const gridWidth = 550;
+const gridDepth = 120;
+const columns = 700;
+const rows = 200;
 let hills = [];
 
 //Calculation of a mountains elevation contribution, gaussian for bell curve shape
@@ -39,8 +39,8 @@ function wordToHill(word) {
     }
 
     //Ensuring that the slopes can fit within grid
-    const xRange = gridWidth - 20;
-    const zRange = gridDepth - 20;
+    const xRange = 60
+    const zRange = 60   
     //construction of a hill 
     return {
         //center location on x axis
@@ -156,10 +156,10 @@ function renderGrid() {
     camera.aspect = width / height;
 
     //Camera position
-    camera.position.set(0, 20, 55);
+    camera.position.set(0, 40, 90);
 
     //Camera direction
-    camera.lookAt(0, 0, 0);
+    camera.lookAt(0, 5, 0);
 
     camera.updateProjectionMatrix();
     renderer.setSize(width, height);
