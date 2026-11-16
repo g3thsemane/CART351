@@ -20,7 +20,7 @@ camera.position.set(30, 55, 90);
 const controls = new OrbitControls(camera, renderer.domElement);
 
 //rotation point
-controls.target.set(10, 5, 0);
+controls.target.set(0, 5, 0);
 
 //Keep the target and viewing distance fixed.
 controls.enablePan = false;
@@ -63,7 +63,7 @@ function wordToHill(word) {
     //Ensuring that the slopes can fit within grid
     const xRange = 60
     const zRange = 60   
-    //construction of a hill 
+    //construction of a hill, ensuring that the numbers aren't too lange
     return {
         //center location on x axis
         x: (weightedSum % (xRange + 1)) - xRange / 2,
